@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-/etc/init.d/mysql restart
+sudo /etc/init.d/mysql restart
 mysqld &
 
 mysql -uroot -e "create database if not exists ask_db"
