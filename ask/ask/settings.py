@@ -135,14 +135,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-
-import platform
-if platform.system() == "Windows":
-    DATABASES = { 'default':
-        {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-    INSTALLED_APPS[-1] = 'stepic_web.ask.qa'
-    ROOT_URLCONF = 'stepic_web.ask.ask.urls'
