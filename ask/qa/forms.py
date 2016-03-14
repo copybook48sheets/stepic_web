@@ -8,11 +8,11 @@ from django import forms
 from django.contrib.auth.models import User
 
 try:
-    from stepic_web.ask.qa.models import Question, Answer
+    from qa.models import Question, Answer
 except ImportError:
     import sys
     sys.path.append("/home/box")
-    from web.ask.qa.models import Question, Answer
+    from qa.models import Question, Answer
 
 
 class AskForm(forms.Form):
