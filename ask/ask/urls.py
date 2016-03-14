@@ -3,11 +3,11 @@
 
 from django.conf.urls import url
 try:
-    from stepic_web.ask.qa import views
+    from qa import views
 except ImportError:
     import sys
     sys.path.append("/home/box")
-    from web.ask.qa import views
+    from qa import views
 
 
 urlpatterns = (url("^$", views.get_questions, name="first_page", kwargs={"question_type": "new"}),
