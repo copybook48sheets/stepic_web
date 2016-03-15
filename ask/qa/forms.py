@@ -17,9 +17,9 @@ class AskForm(forms.Form):
     title = forms.CharField(min_length=1)
     text = forms.CharField(min_length=1, widget=forms.Textarea)
 
-    def __init__(self, user, **kwargs):
+    def __init__(self, user=None, **kwargs):
         self.user = user
-        super().__init__(kwargs)
+        super(AskForm, self).__init__(kwargs)
 
     def save(self):
         self.cleaned_data["author"] = self.user
@@ -32,9 +32,9 @@ class AnswerForm(forms.Form):
     text = forms.CharField(min_length=1, widget=forms.Textarea)
     question = forms.IntegerField()
 
-    def __init__(self, user, **kwargs):
+    def __init__(self, user=None, **kwargs):
         self.user = user
-        super().__init__(kwargs)
+        super(AnswerForm, self).__init__(kwargs)
 
     def clean_question(self):
         question_qs = Question.objects.filter(id=self.cleaned_data["question"])
