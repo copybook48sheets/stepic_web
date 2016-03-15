@@ -61,11 +61,9 @@ def get_questions(request, question_type):
     return render(request, "question_list.html", {"questions": page.object_list, "next_page_ref": next_page_ref,
                                                   "prev_page_ref": prev_page_ref})
 
-# disable csrf defence, put it here just for stepic.org
-@csrf_exempt
-def get_current_question(request, id):
-    question = get_object_or_404(Question, id=id)
-    answers = Answer.objects.filter(question=question)
+
+def get_current_question(request, question_id):
+    question = get_object_or_404(Question, id=int(question_id))
 
     user = User.objects.first()
     if request.method == "POST":
@@ -74,13 +72,13 @@ def get_current_question(request, id):
         form = AnswerForm(user, text=text, question=question)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(request.path)
     else:
-        form = AnswerForm(user, question=id)
+        form = AnswerForm(user, question=question_id)
+    answers = Answer.objects.filter(question=question)
     return render(request, "current_question.html", {"question": question, "answers": answers, "form": form})
 
 # disable csrf defence, put it here just for stepic.org
-@csrf_exempt
+#@csrf_exempt
 def ask_question(request):
     user = User.objects.first()
     if request.method == "POST":
