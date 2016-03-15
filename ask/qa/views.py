@@ -8,6 +8,7 @@ from django.core.paginator import Paginator, EmptyPage
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 
 try:
     from stepic_web.ask.qa.models import Question, Answer
@@ -60,7 +61,8 @@ def get_questions(request, question_type):
     return render(request, "question_list.html", {"questions": page.object_list, "next_page_ref": next_page_ref,
                                                   "prev_page_ref": prev_page_ref})
 
-
+# disable csrf defence, put it here just for stepic.org
+@csrf_exempt
 def get_current_question(request, id):
     question = get_object_or_404(Question, id=id)
     answers = Answer.objects.filter(question=question)
@@ -77,7 +79,8 @@ def get_current_question(request, id):
         form = AnswerForm(user, question=id)
     return render(request, "current_question.html", {"question": question, "answers": answers, "form": form})
 
-
+# disable csrf defence, put it here just for stepic.org
+@csrf_exempt
 def ask_question(request):
     user = User.objects.first()
     if request.method == "POST":
