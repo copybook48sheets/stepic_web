@@ -78,6 +78,5 @@ class AskQuestionTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_wrong_new_question(self):
-        prev_num_questions = Question.objects.count()
         response = self.client.post("/ask/", {"text": "", "title": ""})
         self.assertEqual(response.status_code, 200)
