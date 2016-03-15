@@ -3,12 +3,13 @@ try:
 except ImportError:
     from urllib import urlencode
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 from django.core.paginator import Paginator, EmptyPage
 from django.core.urlresolvers import reverse, NoReverseMatch
+from django.core.context_processors import csrf
 from django.http import Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
+
 
 try:
     from stepic_web.ask.qa.models import Question, Answer
@@ -75,7 +76,9 @@ def get_current_question(request, question_id):
     else:
         form = AnswerForm(user, question=question_id)
     answers = Answer.objects.filter(question=question)
-    return render(request, "current_question.html", {"question": question, "answers": answers, "form": form})
+    c = {"question": question, "answers": answers, "form": form}
+    c.update(csrf(request))
+    return render_to_response("current_question.html", c)
 
 # disable csrf defence, put it here just for stepic.org
 #@csrf_exempt
@@ -91,4 +94,6 @@ def ask_question(request):
             return HttpResponseRedirect(url)
     else:
         form = AskForm(user)
-    return render(request, "ask_question.html", {"form": form})
+    c = {"form": form}
+    c.update(csrf(request))
+    return render_to_response("ask_question.html", c)
