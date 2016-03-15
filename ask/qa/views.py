@@ -80,8 +80,7 @@ def get_current_question(request, question_id):
     c.update(csrf(request))
     return render_to_response("current_question.html", c)
 
-# disable csrf defence, put it here just for stepic.org
-#@csrf_exempt
+
 def ask_question(request):
     user = User.objects.first()
     if request.method == "POST":
