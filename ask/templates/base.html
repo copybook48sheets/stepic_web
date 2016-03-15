@@ -17,16 +17,19 @@
         <header class="row">
             <h1 class="col-md-4 text-center">ASK!</h1>
 
-            <div class="col-md-3"></div>
+            <form name="search" action="#" method="get" class="form-inline form-search col-md-4 pt">
+                <div class="input-group">
+                    <label class="sr-only" for="searchInput">Search</label>
+                    <input class="form-control" id="searchInput" type="text" name="search" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">GO</button>
+                    </div>
+                </div>
+            </form>
 
             <div class="col-md-1 pt"><a class="btn btn-default" href="/ask/" role="button">Ask?</a></div>
 
-            {% if user.is_authenticated %}
-                <div class="col-md-1 pt"><a class="btn btn-default" href="/logout/" role="button">Logout</a></div>
-            {% else %}
-                <div class="col-md-1 pt"><a class="btn btn-default" href="/signup/" role="button">Signup</a></div>
-                <div class="col-md-1 pt"><a class="btn btn-default" href="/login/" role="button">Login</a></div>
-            {% endif %}
+            <div class="col-md-3">Login</div>
         </header>
 
         <nav class="navbar">
