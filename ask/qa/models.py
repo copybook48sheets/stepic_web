@@ -34,11 +34,7 @@ class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateField(auto_now=True)
     question = models.ForeignKey(Question)
-<<<<<<< HEAD
-    author = models.ForeignKey(User, related_name="question_author", null=True)
-=======
     author = models.ForeignKey(User, related_name="answer_author", null=True)
->>>>>>> origin/master
 
     def __str__(self):
         return self.text
